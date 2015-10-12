@@ -33,5 +33,28 @@ public class BoardTest {
 		ArrayList<Integer> expectedSpots = new ArrayList<Integer>(Arrays.asList(3, 4, 5, 6, 7, 8, 9));
 		assertEquals(expectedSpots, board.getEmptySpots());
 	}
+	
+	@Test
+	public void testBoardWinFalseWhenNewGame(){
+		assertFalse(board.win(GameToken.O));
+	}
+	
+	@Test
+	public void testWhenGameTokenXWinsAt123(){
+		board.putMove(1, GameToken.X);
+		board.putMove(2, GameToken.X);
+		board.putMove(3, GameToken.X);
+		
+		assertTrue(board.win(GameToken.X));
+	}
+	
+	@Test
+	public void testWhenGameTokenOWinsAt159(){
+		board.putMove(1, GameToken.O);
+		board.putMove(5, GameToken.O);
+		board.putMove(9, GameToken.O);
+		
+		assertTrue(board.win(GameToken.O));
+	}
 }
 
