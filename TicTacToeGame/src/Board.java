@@ -1,29 +1,29 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Board {
+abstract class Board {
 	private GameToken [] spots;
-	private int [][] winIndexes = { {1,2,3}, {4,5,6}, {7,8,9}, {1,4,7}, {2,5,8}, {3,6,9}, {1,5,9}, {3,5,7} };
+	protected int [][] winIndexes = null;
 	
 	public Board (int size){
 		spots = new GameToken[size];
 		clearAll();
 	}
 	
-	private void clearAll() {
+	protected void clearAll() {
 		for(int index = 1; index <= spots.length; index++)
 			spots[index-1] = GameToken.EMPTY;
 	}
 
-	public void putMove(int index, GameToken piece) {
+	protected void putMove(int index, GameToken piece) {
 		spots[index-1] = piece;
 	}
 	
-	public GameToken getMove(int index) {
+	protected GameToken getMove(int index) {
 		return spots[index-1];
 	}
 	
-	public List<Integer> getEmptySpots() {
+	protected List<Integer> getEmptySpots() {
 		List<Integer> emptySpots = new ArrayList<Integer>();
 		
 		for(int index = 0; index < spots.length; index++)
@@ -33,7 +33,7 @@ public class Board {
 		return emptySpots;
 	}
 
-	public boolean win(GameToken piece) {
+	protected boolean win(GameToken piece) {
 		for(int[] indexes: winIndexes)
 			if(isGameWinningLineup(indexes, piece))
 				return true;
@@ -41,10 +41,11 @@ public class Board {
 		return false;
 	}
 	
-	public boolean isGameWinningLineup(int[] indexes, GameToken piece){
+	protected boolean isGameWinningLineup(int[] indexes, GameToken piece){
 		for(int index : indexes)
 			if(spots[index-1] != piece)
 				return false;
+		
 		return true;
 	}
 }
