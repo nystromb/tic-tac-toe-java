@@ -34,7 +34,7 @@ abstract class Board {
 	}
 
 	protected boolean win(GameToken piece) {
-		for(int[] indexes: winIndexes)
+		for(int[] indexes : winIndexes)
 			if(isGameWinningLineup(indexes, piece))
 				return true;
 				
@@ -49,7 +49,7 @@ abstract class Board {
 		return true;
 	}
 
-	public int getCellCount() {
+	protected int getCellCount() {
 		return spots.length;
 	}
 }
