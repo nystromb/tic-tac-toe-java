@@ -48,4 +48,8 @@ abstract class Board {
 		
 		return true;
 	}
+
+	public int getCellCount() {
+		return spots.length;
+	}
 }
