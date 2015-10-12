@@ -10,7 +10,7 @@ public class BoardTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		board = new Board(9);
+		board = new ThreeByThreeBoard();
 	}
 
 	@Test
