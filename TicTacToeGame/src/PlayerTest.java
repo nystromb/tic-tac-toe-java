@@ -8,7 +8,7 @@ public class PlayerTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		player = new Player();
+		player = new Human();
 	}
 	
 	@Test
