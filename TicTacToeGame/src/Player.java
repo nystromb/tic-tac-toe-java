@@ -1,16 +1,14 @@
 
-public class Player {
-	private GameToken playerToken;
+public abstract class Player {
+	protected GameToken playerToken;
 	
-	public Player () {
-	
-	}
-	
-	public void setPiece(GameToken piece) {
+	protected void setPiece(GameToken piece) {
 		this.playerToken = piece;
 	}
 	
-	public GameToken getPiece() {
+	protected GameToken getPiece() {
 		return this.playerToken;
 	}
+
+	public abstract int getMove(Board board);
 }
