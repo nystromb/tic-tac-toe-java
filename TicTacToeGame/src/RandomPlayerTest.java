@@ -11,10 +11,14 @@ public class RandomPlayerTest {
 	@Before
 	public void setUp() throws Exception {
 		p1 = new RandomPlayer();
-
+		p1.setPiece(GameToken.X);
+		
+		p2 = new RandomPlayer();
+		p2.setPiece(GameToken.O);
+		
 		board = new ThreeByThreeBoard();
 		
-		game = new GameModel(board);
+		game = new GameModel(board, p1, p2);
 	}
 
 	@Test
