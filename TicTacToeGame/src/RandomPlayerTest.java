@@ -4,18 +4,22 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class RandomPlayerTest {
-	Player player;
+	Player p1, p2;
 	Board board;
+	GameModel game;
 	
 	@Before
 	public void setUp() throws Exception {
-		player = new RandomPlayer();
+		p1 = new RandomPlayer();
+
 		board = new ThreeByThreeBoard();
+		
+		game = new GameModel(board);
 	}
 
 	@Test
 	public void testGetRandomMoveFromBoard() {
-		int move = player.getMove(board);
+		int move = p1.getMove(game);
 		
 		assertTrue(move >= 1 && move <= board.getCellCount());
 	}
@@ -31,7 +35,7 @@ public class RandomPlayerTest {
 		board.putMove(7, GameToken.X);
 		board.putMove(8, GameToken.X);
 		
-		int move = player.getMove(board);
+		int move = p1.getMove(game);
 		
 		assertEquals(9, move);
 	}
@@ -48,7 +52,7 @@ public class RandomPlayerTest {
 		board.putMove(8, GameToken.X);
 		board.putMove(9, GameToken.X);
 		
-		int move = player.getMove(board);
+		int move = p1.getMove(game);
 		
 		assertEquals(5, move);
 	}
