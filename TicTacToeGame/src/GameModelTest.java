@@ -24,15 +24,25 @@ public class GameModelTest {
 		
 		game = new GameModel(board, p1, p2);
 	}
-	
+
 	@After
 	public void clearBoard(){
 		board.clearAll();
 	}
 	
 	@Test
-	public void testGetGameBoardInstance(){
-		assertEquals(game.board, board);
+	public void testForCloneGameModel(){
+		GameModel newGame = game.newGameState(1);
+		
+		assertNotEquals(game, newGame);
+	}
+	
+	@Test 
+	public void testForNewGameState(){
+		GameModel newGame = game.newGameState(1);
+		
+		assertEquals(GameToken.X, newGame.board.getMove(1));
+		assertEquals(GameToken.O, newGame.currentPlayer.getPiece());
 	}
 	
 	@Test
