@@ -1,4 +1,3 @@
-
 public abstract class Player {
 	protected GameToken playerToken;
 	
