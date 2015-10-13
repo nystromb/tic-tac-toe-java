@@ -26,15 +26,6 @@ public class BoardTest {
 	}
 	
 	@Test
-	public void testGetsEmptySpaces() {
-		board.putMove(1, GameToken.X);
-		board.putMove(2, GameToken.O);
-		
-		ArrayList<Integer> expectedSpots = new ArrayList<Integer>(Arrays.asList(3, 4, 5, 6, 7, 8, 9));
-		assertEquals(expectedSpots, board.getEmptySpots());
-	}
-	
-	@Test
 	public void testBoardWinFalseWhenNewGame(){
 		assertFalse(board.win(GameToken.O));
 	}
