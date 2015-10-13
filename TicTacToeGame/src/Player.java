@@ -10,5 +10,5 @@ public abstract class Player {
 		return this.playerToken;
 	}
 
-	public abstract int getMove(Board board);
+	public abstract int getMove(GameModel game);
 }
