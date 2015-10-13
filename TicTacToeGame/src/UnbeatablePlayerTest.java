@@ -1,50 +1,45 @@
 import static org.junit.Assert.*;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class UnbeatablePlayerTest {
-	UnbeatablePlayer player;
+	UnbeatablePlayer p1, p2;
 	Board board;
+	GameModel game;
 	
 	@Before
 	public void setUp() throws Exception {
-		player = new UnbeatablePlayer();
+		p1 = new UnbeatablePlayer();
+		p1.setPiece(GameToken.X);
+		
+		p2 = new UnbeatablePlayer();
+		p2.setPiece(GameToken.O);
+		
 		board = new ThreeByThreeBoard();
-	}
-
-	@Test
-	public void testUnbeatablePlayerScoreGameWhenXWins() {
-		board.putMove(1, GameToken.X);
-		board.putMove(2, GameToken.X);
-		board.putMove(3, GameToken.X);
 		
-		assertEquals(10, player.score(board, 0));
+		game = new GameModel(board, p1, p2);
+	}
+	
+	@After
+	public void clearBoard(){
+		game.board.clearAll();
 	}
 	
 	@Test
-	public void testUnbeatableScoreGameWhenOWins() {
-		board.putMove(7, GameToken.O);
-		board.putMove(8, GameToken.O);
-		board.putMove(9, GameToken.O);
+	public void testIfReturn3OnSmartMove(){
+		game.play(2);
+		game.switchTurns();
+		game.play(7);
+		game.switchTurns();
+		game.play(6);
+		game.switchTurns();
+		game.play(8);
+		game.switchTurns();
+		game.play(9);
+		game.switchTurns();
 		
-		assertEquals(-10, player.score(board, 0));
+		assertEquals(3, game.currentPlayer.getMove(game));
 	}
-	
-	@Test
-	public void testUnbeatableScoreDrawGame(){
-		board.putMove(1, GameToken.X);
-		board.putMove(2, GameToken.O);
-		board.putMove(3, GameToken.X);
-		board.putMove(5, GameToken.O);
-		board.putMove(8, GameToken.X);
-		board.putMove(6, GameToken.O);
-		board.putMove(4, GameToken.X);
-		board.putMove(7, GameToken.O);
-		board.putMove(9, GameToken.X);
-		
-		assertEquals(0, player.score(board, 0));
-	}
-
-	
 }
