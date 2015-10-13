@@ -22,16 +22,6 @@ abstract class Board {
 	protected GameToken getMove(int index) {
 		return spots[index-1];
 	}
-	
-	protected List<Integer> getEmptySpots() {
-		List<Integer> emptySpots = new ArrayList<Integer>();
-		
-		for(int index = 0; index < spots.length; index++)
-			if(spots[index] == GameToken.EMPTY)
-				emptySpots.add(index+1);
-		
-		return emptySpots;
-	}
 
 	protected boolean win(GameToken piece) {
 		for(int[] indexes : winIndexes)
