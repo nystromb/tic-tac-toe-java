@@ -4,10 +4,6 @@ import java.util.List;
 public class GameModel {
 	Board board;
 	Player player1, player2, currentPlayer;
-	
-	public GameModel(Board board){
-		this.board = board;
-	}
 
 	public GameModel(Board board, Player player1, Player player2) {
 		this.board = board;
@@ -22,19 +18,16 @@ public class GameModel {
 		this.player2 = game.player2;
 		this.currentPlayer = game.currentPlayer;
 	}
-
+	
 	public void play(int index) {
 		board.putMove(index, this.currentPlayer.getPiece());
 	}
-	
-	protected List<Integer> getEmptySpots() {
-		List<Integer> emptySpots = new ArrayList<Integer>();
-		
-		for(int index = 1; index <= board.getCellCount(); index++)
-			if(board.getMove(index) == GameToken.EMPTY)
-				emptySpots.add(index);
-		
-		return emptySpots;
+
+	public void switchTurns() {
+		if(this.currentPlayer == this.player1){
+			this.currentPlayer = this.player2;
+		}else
+			this.currentPlayer = this.player1;
 	}
 
 	public boolean isOver() {
@@ -43,11 +36,21 @@ public class GameModel {
 		
 		return false;
 	}
-
-	public void switchTurns() {
-		if(this.currentPlayer == this.player1){
-			this.currentPlayer = this.player2;
-		}else
-			this.currentPlayer = this.player1;
+	
+	public List<Integer> getEmptySpots() {
+		List<Integer> emptySpots = new ArrayList<Integer>();
+		
+		for(int index = 1; index <= board.getCellCount(); index++)
+			if(board.getMove(index) == GameToken.EMPTY)
+				emptySpots.add(index);
+		
+		return emptySpots;
+	}
+	
+	public GameModel newGameState(int move){
+		GameModel copy = new GameModel(this);
+		copy.play(move);
+		copy.switchTurns();
+		return copy;
 	}
 }
