@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 abstract class Board {
 	private GameToken [] spots;
 	protected int [][] winIndexes = null;
