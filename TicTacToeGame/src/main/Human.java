@@ -1,26 +1,31 @@
 package main;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Human extends Player {
 	private int move;
 	Scanner input;
 	
-	public Human(Scanner in){
-		this.input = in;
+	public Human(Scanner input){
+		this.input = input;
 	}
 	
 	@Override
 	public int getMove(GameModel game) {
-		do {
-			System.out.println("What move would you like to make?");
-			try{
-				move = input.nextInt();
-			}catch(InputMismatchException e){
-				continue;
-			}
-		} while (move < 1 && move > game.board.getCellCount());
+		System.out.println("What is your next move?");
+		
+		while (true) {
+	        System.out.print("> ");
+	        String userInput = input.next();
+	        try {
+	        	move = Integer.parseInt(userInput);
+	        } catch(NumberFormatException e){
+	        	System.out.println("invalid");
+	        }
+	        
+	        if(game.moveIsValid(move))
+	        	break;
+	    }
 		
 		return move;
 	}
