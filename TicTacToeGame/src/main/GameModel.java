@@ -32,10 +32,7 @@ public class GameModel extends Observable {
 	}
 	
 	public boolean moveIsValid(int move){
-		if ((move >= 1 && move <= board.getCellCount()) && (board.getMove(move) == GameToken.EMPTY))
-			return true;
-		
-		return false;
+		return ((move >= 1 && move <= board.getCellCount()) && (board.getMove(move) == GameToken.EMPTY));
 	}
 	 
 	private void switchTurns() {
@@ -46,10 +43,7 @@ public class GameModel extends Observable {
 	}
 
 	public boolean isOver() {
-		if (board.win(GameToken.X) || board.win(GameToken.O) || (getEmptySpots().size() == 0))
-			return true;
-		
-		return false;
+		return (board.win(GameToken.X) || board.win(GameToken.O) || (getEmptySpots().size() == 0));
 	}
 	
 	public List<Integer> getEmptySpots() {
