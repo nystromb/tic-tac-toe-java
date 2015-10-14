@@ -1,11 +1,13 @@
+package main;
+
 public abstract class Player {
 	protected GameToken playerToken;
 	
-	protected void setPiece(GameToken piece) {
+	public void setPiece(GameToken piece) {
 		this.playerToken = piece;
 	}
 	
-	protected GameToken getPiece() {
+	public GameToken getPiece() {
 		return this.playerToken;
 	}
 

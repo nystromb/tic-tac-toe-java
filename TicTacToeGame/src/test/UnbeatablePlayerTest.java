@@ -1,8 +1,17 @@
+package test;
+
+
 import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import main.Board;
+import main.GameModel;
+import main.GameToken;
+import main.ThreeByThreeBoard;
+import main.UnbeatablePlayer;
 
 public class UnbeatablePlayerTest {
 	UnbeatablePlayer p1, p2;

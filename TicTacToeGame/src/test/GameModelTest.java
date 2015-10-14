@@ -1,11 +1,22 @@
+package test;
+
+
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import main.Board;
+import main.GameModel;
+import main.GameToken;
+import main.Human;
+import main.Player;
+import main.ThreeByThreeBoard;
 
 public class GameModelTest {
 	Board board;
@@ -16,10 +27,10 @@ public class GameModelTest {
 	public void setUp() throws Exception {
 		board = new ThreeByThreeBoard();
 		
-		p1 = new Human();
+		p1 = new Human(new Scanner(System.in));
 		p1.setPiece(GameToken.X);
 		
-		p2 = new Human();
+		p2 = new Human(new Scanner(System.in));
 		p2.setPiece(GameToken.O);
 		
 		game = new GameModel(board, p1, p2);
@@ -27,7 +38,7 @@ public class GameModelTest {
 
 	@After
 	public void clearBoard(){
-		board.clearAll();
+		game.board.clearAll();
 	}
 	
 	@Test
@@ -71,6 +82,27 @@ public class GameModelTest {
 
 	@Test
 	public void testPlayerOCanWin() {
+		game.switchTurns();
 		
+		game.play(1);
+		game.play(5);
+		game.play(9);
+		
+		assertTrue(game.isOver());
+	}
+	
+	@Test
+	public void testGameIsOverAfter9Moves()	{
+		game.play(1);
+		game.play(2);
+		game.play(3);
+		game.play(4);
+		game.play(5);
+		game.play(6);
+		game.play(7);
+		game.play(8);
+		game.play(9);
+		
+		assertTrue(game.isOver());
 	}
 }

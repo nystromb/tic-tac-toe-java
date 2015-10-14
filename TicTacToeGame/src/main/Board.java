@@ -1,4 +1,6 @@
-abstract class Board {
+package main;
+
+public abstract class Board {
 	private GameToken [] spots;
 	protected int [][] winIndexes = null;
 	
@@ -7,20 +9,20 @@ abstract class Board {
 		clearAll();
 	}
 	
-	protected void clearAll() {
+	public void clearAll() {
 		for(int index = 1; index <= spots.length; index++)
 			spots[index-1] = GameToken.EMPTY;
 	}
 
-	protected void putMove(int index, GameToken piece) {
+	public void putMove(int index, GameToken piece) {
 		spots[index-1] = piece;
 	}
 	
-	protected GameToken getMove(int index) {
+	public GameToken getMove(int index) {
 		return spots[index-1];
 	}
 
-	protected boolean win(GameToken piece) {
+	public boolean win(GameToken piece) {
 		for(int[] indexes : winIndexes)
 			if(isGameWinningLineup(indexes, piece))
 				return true;
@@ -36,7 +38,7 @@ abstract class Board {
 		return true;
 	}
 
-	protected int getCellCount() {
+	public int getCellCount() {
 		return spots.length;
 	}
 }

@@ -1,7 +1,17 @@
+package test;
+
+
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import main.Board;
+import main.GameModel;
+import main.GameToken;
+import main.Player;
+import main.RandomPlayer;
+import main.ThreeByThreeBoard;
 
 public class RandomPlayerTest {
 	Player p1, p2;

@@ -1,9 +1,13 @@
+package main;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
-public class GameModel {
-	Board board;
-	Player player1, player2, currentPlayer;
+public class GameModel extends Observable {
+	public Board board;
+	Player player1, player2;
+	public Player currentPlayer;
 
 	public GameModel(Board board, Player player1, Player player2) {
 		this.board = board;
@@ -19,8 +23,11 @@ public class GameModel {
 		this.currentPlayer = game.currentPlayer;
 	}
 	
-	public void play(int index) {
-		board.putMove(index, this.currentPlayer.getPiece());
+	public void play(int move) {
+		if(move >= 1 && move <= board.getCellCount() && board.getMove(move) == GameToken.EMPTY){
+			board.putMove(move, this.currentPlayer.getPiece());
+			notifyObservers(this.board);
+		}
 	}
 
 	public void switchTurns() {
