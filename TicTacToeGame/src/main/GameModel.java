@@ -6,8 +6,7 @@ import java.util.Observable;
 
 public class GameModel extends Observable {
 	public Board board;
-	Player player1, player2;
-	public Player currentPlayer;
+	public Player player1, player2, currentPlayer;
 
 	public GameModel(Board board, Player player1, Player player2) {
 		this.board = board;
@@ -24,13 +23,22 @@ public class GameModel extends Observable {
 	}
 	
 	public void play(int move) {
-		if(move >= 1 && move <= board.getCellCount() && board.getMove(move) == GameToken.EMPTY){
+		if(moveIsValid(move)){
 			board.putMove(move, this.currentPlayer.getPiece());
+			switchTurns();
+			setChanged();
 			notifyObservers(this.board);
 		}
 	}
-
-	public void switchTurns() {
+	
+	public boolean moveIsValid(int move){
+		if ((move >= 1 && move <= board.getCellCount()) && (board.getMove(move) == GameToken.EMPTY))
+			return true;
+		
+		return false;
+	}
+	 
+	private void switchTurns() {
 		if(this.currentPlayer == this.player1){
 			this.currentPlayer = this.player2;
 		}else
@@ -57,7 +65,6 @@ public class GameModel extends Observable {
 	public GameModel newGameState(int move){
 		GameModel copy = new GameModel(this);
 		copy.play(move);
-		copy.switchTurns();
 		return copy;
 	}
 }
