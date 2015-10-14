@@ -25,29 +25,27 @@ public class RandomPlayerTest {
 		
 		p2 = new RandomPlayer();
 		p2.setPiece(GameToken.O);
-		
-		board = new ThreeByThreeBoard();
-		
-		game = new GameModel(board, p1, p2);
+				
+		game = new GameModel(new ThreeByThreeBoard(), p1, p2);
 	}
 
 	@Test
 	public void testGetRandomMoveFromBoard() {
 		int move = p1.getMove(game);
 		
-		assertTrue(move >= 1 && move <= board.getCellCount());
+		assertTrue(game.moveIsValid(move));
 	}
 	
 	@Test
 	public void testRandomMoveIs9(){
-		board.putMove(1, GameToken.X);
-		board.putMove(2, GameToken.X);
-		board.putMove(3, GameToken.X);
-		board.putMove(4, GameToken.X);
-		board.putMove(5, GameToken.X);
-		board.putMove(6, GameToken.X);
-		board.putMove(7, GameToken.X);
-		board.putMove(8, GameToken.X);
+		game.play(1);
+		game.play(2); 
+		game.play(3);
+		game.play(4);
+		game.play(5);
+		game.play(6);
+		game.play(8);
+		game.play(7);
 		
 		int move = p1.getMove(game);
 		
@@ -56,15 +54,15 @@ public class RandomPlayerTest {
 
 	@Test
 	public void testRandomMoveIs5(){
-		board.putMove(1, GameToken.X);
-		board.putMove(2, GameToken.X);
-		board.putMove(3, GameToken.X);
-		board.putMove(4, GameToken.X);
+		game.play(1);
+		game.play(2);
+		game.play(3);
+		game.play(4);
+		game.play(6);
+		game.play(7);
+		game.play(8);
+		game.play(9);
 		
-		board.putMove(6, GameToken.X);
-		board.putMove(7, GameToken.X);
-		board.putMove(8, GameToken.X);
-		board.putMove(9, GameToken.X);
 		
 		int move = p1.getMove(game);
 		
