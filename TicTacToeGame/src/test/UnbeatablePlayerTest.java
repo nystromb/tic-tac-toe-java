@@ -3,11 +3,14 @@ package test;
 
 import static org.junit.Assert.*;
 
+import java.util.Scanner;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import main.Board;
+import main.CommandLineInterface;
 import main.GameModel;
 import main.GameToken;
 import main.ThreeByThreeBoard;
@@ -23,32 +26,30 @@ public class UnbeatablePlayerTest {
 		p1 = new UnbeatablePlayer();
 		p1.setPiece(GameToken.X);
 		
-		p2 = new UnbeatablePlayer();
+		p2 = new UnbeatablePlayer(); 
 		p2.setPiece(GameToken.O);
 		
-		board = new ThreeByThreeBoard();
+		game = new GameModel(new ThreeByThreeBoard(), p1, p2);
 		
-		game = new GameModel(board, p1, p2);
+		game.addObserver(new CommandLineInterface(new Scanner(System.in)));
 	}
 	
-	@After
-	public void clearBoard(){
-		game.board.clearAll();
+	@Test
+	public void testIfBlocksOpponentMoveAt9(){
+		game.play(1);
+		
+		assertEquals(5, game.currentPlayer.getMove(game));
 	}
 	
 	@Test
 	public void testIfReturn3OnSmartMove(){
-		game.play(2);
-		game.switchTurns();
+	 	game.play(2);
 		game.play(7);
-		game.switchTurns();
 		game.play(6);
-		game.switchTurns();
 		game.play(8);
-		game.switchTurns();
 		game.play(9);
-		game.switchTurns();
 		
 		assertEquals(3, game.currentPlayer.getMove(game));
 	}
+
 }
