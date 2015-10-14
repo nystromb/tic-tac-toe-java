@@ -20,21 +20,18 @@ import main.Player;
 import main.ThreeByThreeBoard;
 
 public class GameModelTest {
-	Board board;
 	Player p1, p2;
 	GameModel game;
 	
 	@Before
 	public void setUp() throws Exception {
-		board = new ThreeByThreeBoard();
-		
 		p1 = new Human(new Scanner(System.in));
 		p1.setPiece(GameToken.X);
 		 
 		p2 = new Human(new Scanner(System.in));
 		p2.setPiece(GameToken.O);
 		
-		game = new GameModel(board, p1, p2);
+		game = new GameModel(new ThreeByThreeBoard(), p1, p2);
 		
 		game.addObserver(new CommandLineInterface(new Scanner(System.in)));
 	}
@@ -99,15 +96,15 @@ public class GameModelTest {
 	
 	@Test
 	public void testGameIsOverAfter9Moves()	{
-		game.play(1); // X
-		game.play(3); // O
-		game.play(2); // X
-		game.play(4); // O
-		game.play(6); // X
-		game.play(5); // O
-		game.play(7); // X
-		game.play(8); // O
-		game.play(9); // X
+		game.play(1); // Player X
+		game.play(3); // Player O
+		game.play(2); // Player X
+		game.play(4); // Player O
+		game.play(6); // Player X
+		game.play(5); // Player O
+		game.play(7); // Player X
+		game.play(8); // Player O
+		game.play(9); // Player X
 		
 		assertTrue(game.isOver());
 	}
