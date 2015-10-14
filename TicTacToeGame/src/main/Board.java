@@ -1,8 +1,8 @@
 package main;
 
 public abstract class Board {
-	private GameToken [] spots;
 	protected int [][] winIndexes = null;
+	public GameToken [] spots;
 	
 	public Board (int size){
 		spots = new GameToken[size];
@@ -39,6 +39,6 @@ public abstract class Board {
 	}
 
 	public int getCellCount() {
-		return spots.length;
+	 	return spots.length;
 	}
 }
