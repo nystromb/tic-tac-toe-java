@@ -11,7 +11,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.Board;
 import main.CommandLineInterface;
 import main.GameModel;
 import main.GameToken;
@@ -33,24 +32,32 @@ public class GameModelTest {
 		
 		game = new GameModel(new ThreeByThreeBoard(), p1, p2);
 		
-		game.addObserver(new CommandLineInterface(new Scanner(System.in)));
+		//game.addObserver(new CommandLineInterface(new Scanner(System.in)));
 	}
-
+	
 	@After
-	public void clearBoard(){
+	public void clearBoard()
+	{
 		game.board.clearAll();
 	}
 	
 	@Test
+	public void testCanPutAMoveAt9(){
+		game.play(9);
+		assertEquals(GameToken.X, game.board.getMove(9));	
+	}
+	
+	@Test
 	public void testForCloneGameModel(){ 
-		GameModel copy = game.newGameState(1);
+		GameModel copy = new GameModel(game);
 		
 		assertNotEquals(game, copy);
 	}
 	
 	@Test 
 	public void testForNewGameState(){
-		GameModel newGame = game.newGameState(1);
+		game.play(1);
+		GameModel newGame = new GameModel(game);
 		
 		assertEquals(GameToken.X, newGame.board.getMove(1));
 		assertEquals(GameToken.O, newGame.currentPlayer.getPiece());
@@ -76,7 +83,7 @@ public class GameModelTest {
 		game.play(1); // Player X
 		game.play(4); // Player O
 		game.play(3); // Player X
-		game.play(7); // Player O
+		game.play(7); // Player O		
 		game.play(2); // Player X
 		
 		assertTrue(game.isOver());
@@ -88,7 +95,7 @@ public class GameModelTest {
 		game.play(5); // Player O
 		game.play(2); // Player X
 		game.play(6); // Player O
-		game.play(7); // Player X
+		game.play(7); // Player X		
 		game.play(4); // Player O
 		
 		assertTrue(game.isOver());
@@ -103,9 +110,26 @@ public class GameModelTest {
 		game.play(6); // Player X
 		game.play(5); // Player O
 		game.play(7); // Player X
-		game.play(8); // Player O
+		game.play(8); // Player O		
 		game.play(9); // Player X
 		
 		assertTrue(game.isOver());
+	}
+	
+	@Test
+	public void testUnplayMove(){
+		assertEquals(GameToken.X, game.currentPlayer.getPiece());
+		assertEquals(GameToken.EMPTY, game.board.getMove(1));
+		
+		game.play(1);
+		
+		assertEquals(GameToken.O, game.currentPlayer.getPiece());
+		assertEquals(GameToken.X, game.board.getMove(1));
+		
+		game.unplay(1);
+		
+		assertEquals(GameToken.X, game.currentPlayer.getPiece());
+		assertEquals(GameToken.EMPTY, game.board.getMove(1));
+		
 	}
 }
