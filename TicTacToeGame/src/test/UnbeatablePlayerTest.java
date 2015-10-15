@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 
 import java.util.Scanner;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -46,10 +45,48 @@ public class UnbeatablePlayerTest {
 	 	game.play(2);
 		game.play(7);
 		game.play(6);
-		game.play(8);
+		game.play(8); 
 		game.play(9);
 		
 		assertEquals(3, game.currentPlayer.getMove(game));
 	}
+	
+	@Test
+	public void testIfBlocksMoveIfXHasTwoLinedUp(){
+		game.play(1);
+		game.play(5);
+		game.play(3);
+		
+		assertEquals(2, game.currentPlayer.getMove(game));
+	}
+	
+	@Test
+	public void testReturnsLastMoveOnBoardThatIsLeft(){
+		game.play(1); // Player X
+		game.play(3); // Player O
+		game.play(2); // Player X
+		game.play(4); // Player O
+		game.play(6); // Player X
+		game.play(5); // Player O
+		game.play(7); // Player X
+		game.play(8); // Player O
+		
+		assertEquals(9, game.currentPlayer.getMove(game));
+	}
+	
+	@Test
+	public void testPlaysUntilTheEnd(){
+		game.play(1);
+		game.play(3);
+		game.play(2);
+		game.play(4);
+		game.play(6);
+		game.play(5);
+		game.play(7);
+		
+		int move = game.currentPlayer.getMove(game);
+		game.play(move);
+		assertEquals(GameToken.O, game.board.getMove(move));
 
+	}
 }
