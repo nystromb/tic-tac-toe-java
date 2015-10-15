@@ -55,10 +55,9 @@ public class GameModel extends Observable {
 		
 		return emptySpots;
 	}
-	
-	public GameModel newGameState(int move){
-		GameModel copy = new GameModel(this);
-		copy.play(move);
-		return copy;
+
+	public void unplay(int move) {
+		board.putMove(move, GameToken.EMPTY);
+		switchTurns();
 	}
 }
