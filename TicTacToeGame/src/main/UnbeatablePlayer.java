@@ -20,24 +20,27 @@ public class UnbeatablePlayer extends Player {
 		Map<Integer, Integer> scores = new LinkedHashMap<Integer, Integer>();
 		
 		for(Integer move : game.getEmptySpots()){
-			GameModel copy = game.newGameState(move);
+			game.play(move);
+			GameModel copy = new GameModel(game);
 			scores.put(move, minimax(copy, depth+1));
+			game.unplay(move);
+			
 		}
 
 		if(game.currentPlayer.getPiece() == GameToken.X) {
 			for(Entry<Integer, Integer> entry : scores.entrySet())
-				if(bestEntry == null || entry.getValue() > bestEntry.getValue())
+				if(bestEntry == null || entry.getValue() >= bestEntry.getValue())
 					bestEntry = entry;
 		}
 		else {
 			for(Entry<Integer, Integer> entry : scores.entrySet())
-				if(bestEntry == null || entry.getValue() < bestEntry.getValue())
+				if(bestEntry == null || entry.getValue() <= bestEntry.getValue())
 					bestEntry = entry;
 		}
 		
-		if(depth == 0)
-			//System.out.println(scores);
+		if(depth == 0){
 			return bestEntry.getKey();
+		}
 		else
 			return bestEntry.getValue();
 		
