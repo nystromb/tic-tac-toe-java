@@ -14,14 +14,15 @@ public class GameModel extends Observable {
 		this.player2 = player2;
 		this.currentPlayer = player1;
 	}
-
+	
 	public GameModel(GameModel game) {
-		this.board = game.board;
+		this.board = game.board.clone();
+		this.board.spots = game.board.spots;
 		this.player1 = game.player1;
 		this.player2 = game.player2;
 		this.currentPlayer = game.currentPlayer;
 	}
-	
+
 	public void play(int move) {
 		if(moveIsValid(move)){
 			board.putMove(move, this.currentPlayer.getPiece());
