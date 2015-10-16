@@ -1,13 +1,10 @@
 package main;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UnbeatablePlayer extends Player {
-	Entry<Integer, Integer> bestEntry;
-	int bestMove = 0;
-	int bestScore = 0;
+	private int bestScore = 0;
 	
 	public int getMove(GameModel game) {
 		return minimax(new GameModel(game), 0);
@@ -16,34 +13,33 @@ public class UnbeatablePlayer extends Player {
 	private int minimax(GameModel game, int depth) {
 		if(game.isOver())
 			return score(game.board, depth);
-	
-		Map<Integer, Integer> scores = new LinkedHashMap<Integer, Integer>();
 		
-		for(Integer move : game.getEmptySpots()){
+		List<Integer> moves = game.getEmptySpots();
+		List<Integer> scores = new ArrayList<Integer>();
+		
+		for(Integer move : moves){
 			game.play(move);
 			GameModel copy = new GameModel(game);
-			scores.put(move, minimax(copy, depth+1));
+			scores.add(minimax(copy, depth+1));
 			game.unplay(move);
-			
-		}
-
-		if(game.currentPlayer.getPiece() == GameToken.X) {
-			for(Entry<Integer, Integer> entry : scores.entrySet())
-				if(bestEntry == null || entry.getValue() >= bestEntry.getValue())
-					bestEntry = entry;
-		}
-		else {
-			for(Entry<Integer, Integer> entry : scores.entrySet())
-				if(bestEntry == null || entry.getValue() <= bestEntry.getValue())
-					bestEntry = entry;
 		}
 		
-		if(depth == 0){
-			return bestEntry.getKey();
+		if(game.currentPlayer.getPiece() == GameToken.X){
+			bestScore = -100;
+			for(Integer score : scores)
+				if(score > bestScore)
+					bestScore = score; 
+		}else {
+			bestScore = 100;
+			for(Integer score : scores)
+				if(score < bestScore)
+					bestScore = score;
 		}
+		
+		if(depth == 0)
+			return moves.get(scores.indexOf(bestScore));
 		else
-			return bestEntry.getValue();
-		
+			return bestScore;
 	}
 	
 	private int score(Board board, int depth) {
