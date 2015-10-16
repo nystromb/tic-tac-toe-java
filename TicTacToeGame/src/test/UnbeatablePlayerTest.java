@@ -3,13 +3,11 @@ package test;
 
 import static org.junit.Assert.*;
 
-import java.util.Scanner;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import main.Board;
-import main.CommandLineInterface;
 import main.GameModel;
 import main.GameToken;
 import main.ThreeByThreeBoard;
@@ -28,17 +26,37 @@ public class UnbeatablePlayerTest {
 		p2 = new UnbeatablePlayer(); 
 		p2.setPiece(GameToken.O);
 		
-		game = new GameModel(new ThreeByThreeBoard(), p1, p2);
-		
-		game.addObserver(new CommandLineInterface(new Scanner(System.in)));
+		game = new GameModel(new ThreeByThreeBoard(), p1, p2);		
 	}
 	
 	@Test
-	public void testIfBlocksOpponentMoveAt9(){
+	public void testMakesSecondMoveAt5IfFirstIs1(){
 		game.play(1);
 		
 		assertEquals(5, game.currentPlayer.getMove(game));
 	}
+	
+	@Test
+	public void testMakesSecondMoveAt5IfFirstIs3(){
+		game.play(3);
+		
+		assertEquals(5, game.currentPlayer.getMove(game));
+	}
+	
+	@Test
+	public void testMakesSecondMoveAt5IfFirstIs7(){
+		game.play(7);
+		
+		assertEquals(5, game.currentPlayer.getMove(game));
+	}
+	
+	@Test
+	public void testMakesSecondMoveAt5IfFirstIs9(){
+		game.play(9);
+		
+		assertEquals(5, game.currentPlayer.getMove(game));
+	}
+	
 	
 	@Test
 	public void testIfReturn3OnSmartMove(){
@@ -58,35 +76,5 @@ public class UnbeatablePlayerTest {
 		game.play(3);
 		
 		assertEquals(2, game.currentPlayer.getMove(game));
-	}
-	
-	@Test
-	public void testReturnsLastMoveOnBoardThatIsLeft(){
-		game.play(1); // Player X
-		game.play(3); // Player O
-		game.play(2); // Player X
-		game.play(4); // Player O
-		game.play(6); // Player X
-		game.play(5); // Player O
-		game.play(7); // Player X
-		game.play(8); // Player O
-		
-		assertEquals(9, game.currentPlayer.getMove(game));
-	}
-	
-	@Test
-	public void testPlaysUntilTheEnd(){
-		game.play(1);
-		game.play(3);
-		game.play(2);
-		game.play(4);
-		game.play(6);
-		game.play(5);
-		game.play(7);
-		
-		int move = game.currentPlayer.getMove(game);
-		game.play(move);
-		assertEquals(GameToken.O, game.board.getMove(move));
-
 	}
 }
