@@ -7,11 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.CommandLineInterface;
 import main.GameModel;
 import main.GameToken;
 import main.Human;
@@ -35,16 +33,19 @@ public class GameModelTest {
 		//game.addObserver(new CommandLineInterface(new Scanner(System.in)));
 	}
 	
-	@After
-	public void clearBoard()
-	{
-		game.board.clearAll();
-	}
-	
 	@Test
 	public void testCanPutAMoveAt9(){
 		game.play(9);
 		assertEquals(GameToken.X, game.board.getMove(9));	
+	}
+	
+	@Test
+	public void testCannotPutAMoveAt10(){
+		assertEquals(game.player1, game.currentPlayer);
+		
+		game.play(10);
+		
+		assertEquals(game.player1, game.currentPlayer);
 	}
 	
 	@Test
@@ -57,10 +58,12 @@ public class GameModelTest {
 	@Test 
 	public void testForNewGameState(){
 		game.play(1);
+		
 		GameModel newGame = new GameModel(game);
 		
 		assertEquals(GameToken.X, newGame.board.getMove(1));
 		assertEquals(GameToken.O, newGame.currentPlayer.getPiece());
+		assertNotEquals(newGame.board, game.board);
 	}
 	
 	@Test
