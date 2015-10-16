@@ -1,10 +1,14 @@
 package main;
 
+import java.lang.reflect.InvocationTargetException;
+
 public abstract class Board {
 	public GameToken [] spots;
+	protected int[][] winningIndexes;
 	
-	public Board (int size){
+	public Board (int size, int[][] indexes){
 		spots = new GameToken[size];
+		winningIndexes = indexes;
 		clearAll();
 	}
 
@@ -22,7 +26,7 @@ public abstract class Board {
 	}
 
 	public boolean win(GameToken piece) {
-		for(int[] indexes : getWinIndexes())
+		for(int[] indexes : winningIndexes)
 			if(isGameWinningLineup(indexes, piece))
 				return true;
 				
@@ -41,6 +45,16 @@ public abstract class Board {
 	 	return spots.length;
 	}
 	
-	protected abstract void setWinIndexes(int [][] indexes);
-	protected abstract int [][] getWinIndexes();
+	public Board clone(){
+		try {
+			Board b = getClass().getConstructor().newInstance();
+			return b;
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException | NoSuchMethodException | SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 }
