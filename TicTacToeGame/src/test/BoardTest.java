@@ -48,5 +48,12 @@ public class BoardTest {
 		
 		assertTrue(board.win(GameToken.O));
 	}
+	
+	@Test
+	public void testBoardClone(){
+		Board b = board.clone();
+		
+		assertNotEquals(b, board);
+	}
 }
 
