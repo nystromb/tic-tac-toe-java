@@ -75,5 +75,18 @@ public class CommandLineInterfaceTest {
 		
 		assertEquals(1, cli.getGameInput());
 	}
-
+	
+	@Test
+	public void testGameModePrompt(){
+		cli.promptGameMode();
+		
+		assertTrue(stream.toString().contains("Please select a game mode:\n1. Human vs Human\n2. Human vs Computer\n 3. Computer vs Computer"));
+	}
+	
+	@Test
+	public void testIfWelcomesToTicTacToe(){
+		cli.promptWelcomeMessage();
+		
+		assertTrue(stream.toString().contains("Welcome to Tic Tac Toe"));
+	}
 }
