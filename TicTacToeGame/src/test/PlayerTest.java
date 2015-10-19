@@ -37,5 +37,14 @@ public class PlayerTest {
 		player.setPiece(GameToken.O);
 		
 		assertEquals("Player can have an O game piece", GameToken.O, player.getPiece());
+	} 
+	
+	@Test
+	public void testGetMoveFromHumanPlayer(){
+		this.player = new Human(new CommandLineInterface(new Scanner("some garbage input 10 1"), System.out));
+		
+		int move = player.getMove(game);
+		
+		assertTrue(game.moveIsValid(move));
 	}
 }
