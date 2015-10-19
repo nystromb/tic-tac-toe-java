@@ -45,7 +45,7 @@ public class CommandLineInterfaceTest {
 		assertTrue(stream.toString().contains("1|2|3\n4|5|6\n7|8|9\n"));
 		 
 		game.play(1);
-		
+		 
 		cli.update(game, game.board);
 		
 		assertTrue(stream.toString().contains("X|2|3\n4|5|6\n7|8|9\n"));
@@ -80,7 +80,7 @@ public class CommandLineInterfaceTest {
 	public void testGameModePrompt(){
 		cli.promptGameMode();
 		
-		assertTrue(stream.toString().contains("Please select a game mode:\n1. Human vs Human\n2. Human vs Computer\n 3. Computer vs Computer"));
+		assertTrue(stream.toString().contains("Please select a game mode:\n 1. Human vs Human\n 2. Human vs Computer\n 3. Computer vs Computer"));
 	}
 	
 	@Test
@@ -88,5 +88,33 @@ public class CommandLineInterfaceTest {
 		cli.promptWelcomeMessage();
 		
 		assertTrue(stream.toString().contains("Welcome to Tic Tac Toe"));
+	}
+	
+	@Test
+	public void testIfPrintsGameMode1(){
+		cli.printGameModeToUser(1);
+		
+		assertTrue(stream.toString().contains("Game Mode: Human vs Human"));
+	}
+	
+	@Test
+	public void testIfPrintsGameMode2(){
+		cli.printGameModeToUser(2);
+		
+		assertTrue(stream.toString().contains("Game Mode: Human vs Computer"));
+	}
+	
+	@Test
+	public void testIfPrintsGameMode3(){
+		cli.printGameModeToUser(3);
+		
+		assertTrue(stream.toString().contains("Game Mode: Computer vs Computer"));
+	}
+	
+	@Test 
+	public void testHumanPlayerPrompt(){
+		cli.promptHumanForMove();
+		
+		assertTrue(stream.toString().contains("Choose your next move"));
 	}
 }
