@@ -21,10 +21,10 @@ public class RandomPlayerTest {
 	@Before
 	public void setUp() throws Exception {
 		p1 = new RandomPlayer();
-		p1.setPiece(GameToken.X);
+		p1.setPiece(GameToken.X); 
 		
 		p2 = new RandomPlayer();
-		p2.setPiece(GameToken.O);
+		p2.setPiece(GameToken.O); 
 				
 		game = new GameModel(new ThreeByThreeBoard(), p1, p2);
 	}
@@ -32,7 +32,7 @@ public class RandomPlayerTest {
 	@Test
 	public void testGetRandomMoveFromBoard() {
 		int move = p1.getMove(game);
-		
+		 
 		assertTrue(game.moveIsValid(move));
 	}
 	
@@ -62,7 +62,6 @@ public class RandomPlayerTest {
 		game.play(7);
 		game.play(8);
 		game.play(9);
-		
 		
 		int move = p1.getMove(game);
 		
