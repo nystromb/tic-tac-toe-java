@@ -10,6 +10,7 @@ import java.util.Scanner;
 import org.junit.Before;
 import org.junit.Test;
 
+import main.CommandLineInterface;
 import main.GameModel;
 import main.GameToken;
 import main.Human;
@@ -22,10 +23,11 @@ public class GameModelTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		p1 = new Human(new Scanner(System.in));
+		CommandLineInterface cli = new CommandLineInterface(new Scanner(System.in), System.out);
+		p1 = new Human(cli);
 		p1.setPiece(GameToken.X);
 		 
-		p2 = new Human(new Scanner(System.in));
+		p2 = new Human(cli);
 		p2.setPiece(GameToken.O);
 		
 		game = new GameModel(new ThreeByThreeBoard(), p1, p2);
