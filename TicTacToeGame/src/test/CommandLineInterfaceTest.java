@@ -28,10 +28,10 @@ public class CommandLineInterfaceTest {
 		System.setOut(output);
 		
 		cli = new CommandLineInterface(new Scanner(System.in), System.out);
-				
+				 
 		Player p1 = new Human(cli);
 		p1.setPiece(GameToken.X);
-		
+		 
 		Player p2 = new Human(cli);
 		p2.setPiece(GameToken.O);
 		
@@ -61,6 +61,19 @@ public class CommandLineInterfaceTest {
 		cli.update(game, game.board);
 		
 		assertTrue(stream.toString().contains("X|O|X\n4|5|6\n7|8|9\n"));
+		
+		game.play(4);
+		
+		cli.update(game, game.board);
+		
+		assertTrue(stream.toString().contains("X|O|X\nO|5|6\n7|8|9\n"));
+	} 
+	
+	@Test
+	public void testGetGameInput(){
+		cli = new CommandLineInterface(new Scanner("some invalid input 1"), System.out);
+		
+		assertEquals(1, cli.getGameInput());
 	}
 
 }
