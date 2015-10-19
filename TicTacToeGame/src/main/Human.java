@@ -1,10 +1,8 @@
 package main;
 
-import java.util.Scanner;
-
 public class Human extends Player {
-	private int move;
 	CommandLineInterface cli;
+	private int move;
 	
 	public Human(CommandLineInterface cli){
 		this.cli = cli;
@@ -12,7 +10,10 @@ public class Human extends Player {
 	
 	@Override
 	public int getMove(GameModel game) {
-		return move;
+		while(true){
+			move = cli.getGameInput(); 
+			if(game.moveIsValid(move)) return move;
+		}
 	}
 
 }
