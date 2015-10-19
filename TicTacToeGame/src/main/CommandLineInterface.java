@@ -33,6 +33,8 @@ public class CommandLineInterface implements Observer {
 	}
 
 	public int getGameInput() {
+		output.print(">");
+		
 		while(!(input.hasNextInt())) input.next();
 		
 		return input.nextInt();
