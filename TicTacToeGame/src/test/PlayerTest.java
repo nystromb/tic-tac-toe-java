@@ -7,7 +7,7 @@ import java.util.Scanner;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.Board;
+import main.CommandLineInterface;
 import main.GameModel;
 import main.GameToken;
 import main.Human;
@@ -16,14 +16,13 @@ import main.ThreeByThreeBoard;
 
 public class PlayerTest {
 	Player player;
-	Board board;
 	GameModel game;
 	
 	@Before
 	public void setUp() throws Exception {
-		player = new Human(new Scanner(System.in));
-		board = new ThreeByThreeBoard();
-		game = new GameModel(board, player, player);
+		CommandLineInterface cli = new CommandLineInterface(new Scanner(System.in), System.out);
+		player = new Human(cli);
+		game = new GameModel(new ThreeByThreeBoard(), player, player);
 	}
 	
 	@Test
