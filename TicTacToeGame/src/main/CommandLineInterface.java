@@ -13,8 +13,8 @@ public class CommandLineInterface implements Observer {
 		this.input = input;
 		this.output = output;
 	}
-	
-	public void update(Observable o, Object board) {
+
+	public void update(Observable game, Object board) {
 		printBoard((Board) board);
  	}
 
@@ -24,11 +24,17 @@ public class CommandLineInterface implements Observer {
 				output.print(index);
 			else
 				output.print(board.getMove(index));
-			
+			 
 			if((index % Math.sqrt(board.getCellCount())) == 0)
 				output.println("");
 			else
 				output.print("|");
 		}
+	}
+
+	public int getGameInput() {
+		while(!(input.hasNextInt())) input.next();
+		
+		return input.nextInt();
 	}
 }
