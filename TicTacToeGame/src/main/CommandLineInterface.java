@@ -13,7 +13,15 @@ public class CommandLineInterface implements Observer {
 		this.input = input;
 		this.output = output;
 	}
-
+	
+	public int getGameInput() {
+		output.print(">");
+		
+		while(!(input.hasNextInt())) input.next();
+		
+		return input.nextInt();
+	}
+	
 	public void update(Observable game, Object board) {
 		printBoard((Board) board);
  	}
@@ -32,11 +40,11 @@ public class CommandLineInterface implements Observer {
 		}
 	}
 
-	public int getGameInput() {
-		output.print(">");
-		
-		while(!(input.hasNextInt())) input.next();
-		
-		return input.nextInt();
+	public void promptWelcomeMessage() {
+		output.println("Welcome to Tic Tac Toe");		
+	}
+
+	public void promptGameMode() {
+		output.println("Please select a game mode:\n1. Human vs Human\n2. Human vs Computer\n 3. Computer vs Computer");
 	}
 }
