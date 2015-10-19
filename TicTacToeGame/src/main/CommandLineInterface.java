@@ -15,7 +15,7 @@ public class CommandLineInterface implements Observer {
 	}
 	
 	public int getGameInput() {
-		output.print(">");
+		output.print("\n>");
 		
 		while(!(input.hasNextInt())) input.next();
 		
@@ -45,6 +45,20 @@ public class CommandLineInterface implements Observer {
 	}
 
 	public void promptGameMode() {
-		output.println("Please select a game mode:\n1. Human vs Human\n2. Human vs Computer\n 3. Computer vs Computer");
+		output.println("Please select a game mode:\n 1. Human vs Human\n 2. Human vs Computer\n 3. Computer vs Computer");
+	}
+
+	public void printGameModeToUser(int mode) {
+		output.print("Game Mode: ");
+		if(mode == 1)
+			output.println("Human vs Human");
+		else if(mode == 2)
+			output.println("Human vs Computer");
+		else if(mode == 3)
+			output.println("Computer vs Computer");		
+	}
+
+	public void promptHumanForMove() {
+		output.println("Choose your next move");
 	}
 }
