@@ -1,5 +1,4 @@
 package main;
-
 import java.lang.reflect.InvocationTargetException;
 
 public abstract class Board {
@@ -51,7 +50,6 @@ public abstract class Board {
 			return b;
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException | NoSuchMethodException | SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
